@@ -1,0 +1,27 @@
+[package]
+name = "xplm-sys-lb"
+version = "0.1.0"
+authors = ["Lee Baker <lee@leecbaker.com>"]
+license = "MIT OR Apache-2.0"
+description = "X-Plane SDK bindings for Rust."
+repository = "https://github.com/leecbaker/xplm-lb"
+homepage = "https://github.com/leecbaker/xplm-lb"
+documentation = "https://docs.rs/regex"
+readme = "README.md"
+keywords = ["X-Plane", "plugin", "flightsim"]
+categories = ["external-ffi-bindings"]
+edition = "2024"
+
+build = "build.rs"
+
+[lib]
+test = false
+
+[build-dependencies]
+bindgen = "0.71"
+
+[features]
+xplm2 = []
+xplm3 = ["xplm2"]
+xplm4 = ["xplm3"]
+deprecated = []

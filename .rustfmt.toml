@@ -1,0 +1,6 @@
+group_imports = "StdExternalCrate"
+imports_granularity = "Module"
+
+ignore = ["tts-rs"]
+wrap_comments = true
+
