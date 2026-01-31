@@ -25,3 +25,6 @@ xplm2 = []
 xplm3 = ["xplm2"]
 xplm4 = ["xplm3"]
 deprecated = []
+
+[package.metadata.docs.rs]
+all-features = true
