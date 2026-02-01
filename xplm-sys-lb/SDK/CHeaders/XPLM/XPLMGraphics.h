@@ -2,7 +2,7 @@
 #define _XPLMGraphics_h_
 
 /*
- * Copyright 2005-2022 Laminar Research, Sandy Barbour and Ben Supnik All
+ * Copyright 2005-2025 Laminar Research, Sandy Barbour and Ben Supnik All
  * rights reserved.  See license.txt for usage. X-Plane SDK Version: 4.0.0
  *
  */
@@ -55,7 +55,6 @@ extern "C" {
  * These routines allow you to use OpenGL with X-Plane.
  *
  */
-
 
 /*
  * XPLMTextureID
@@ -154,7 +153,6 @@ XPLM_API void       XPLMSetGraphicsState(
                          int                  inEnableAlphaBlending,
                          int                  inEnableDepthTesting,
                          int                  inEnableDepthWriting);
-
 /*
  * XPLMBindTexture2d
  * 
@@ -176,7 +174,6 @@ XPLM_API void       XPLMSetGraphicsState(
 XPLM_API void       XPLMBindTexture2d(
                          int                  inTextureNum,
                          int                  inTextureUnit);
-
 /*
  * XPLMGenerateTextureNumbers
  * 
@@ -188,8 +185,6 @@ XPLM_API void       XPLMBindTexture2d(
 XPLM_API void       XPLMGenerateTextureNumbers(
                          int *                outTextureIDs,
                          int                  inCount);
-
-#if defined(XPLM_DEPRECATED)
 /*
  * XPLMGetTexture
  * 
@@ -200,8 +195,6 @@ XPLM_API void       XPLMGenerateTextureNumbers(
  */
 XPLM_API int        XPLMGetTexture(
                          enum XPLMTextureID        inTexture);
-#endif /* XPLM_DEPRECATED */
-
 /*
  * XPLMWorldToLocal
  * 
@@ -218,7 +211,6 @@ XPLM_API void       XPLMWorldToLocal(
                          double *             outX,
                          double *             outY,
                          double *             outZ);
-
 /*
  * XPLMLocalToWorld
  * 
@@ -238,7 +230,6 @@ XPLM_API void       XPLMLocalToWorld(
                          double *             outLatitude,
                          double *             outLongitude,
                          double *             outAltitude);
-
 /*
  * XPLMDrawTranslucentDarkBox
  * 
@@ -252,7 +243,6 @@ XPLM_API void       XPLMDrawTranslucentDarkBox(
                          int                  inTop,
                          int                  inRight,
                          int                  inBottom);
-
 /***************************************************************************
  * X-PLANE TEXT
  ***************************************************************************/
@@ -401,7 +391,7 @@ XPLM_API void       XPLMDrawString(
  *
  */
 XPLM_API void       XPLMDrawNumber(
-                         float *              inColorRGB,
+                         const float *        inColorRGB,
                          int                  inXOffset,
                          int                  inYOffset,
                          double               inValue,
@@ -424,7 +414,6 @@ XPLM_API void       XPLMGetFontDimensions(
                          int *                outCharWidth,           /* Can be NULL */
                          int *                outCharHeight,          /* Can be NULL */
                          int *                outDigitsOnly);         /* Can be NULL */
-
 #if defined(XPLM200)
 /*
  * XPLMMeasureString
@@ -441,7 +430,6 @@ XPLM_API float      XPLMMeasureString(
                          const char *         inChar,
                          int                  inNumChars);
 #endif /* XPLM200 */
-
 #ifdef __cplusplus
 }
 #endif

@@ -2,7 +2,7 @@
 #define _XPLMScenery_h_
 
 /*
- * Copyright 2005-2022 Laminar Research, Sandy Barbour and Ben Supnik All
+ * Copyright 2005-2025 Laminar Research, Sandy Barbour and Ben Supnik All
  * rights reserved.  See license.txt for usage. X-Plane SDK Version: 4.0.0
  *
  */
@@ -56,7 +56,6 @@ extern "C" {
  *
  */
 
-
 /*
  * XPLMProbeType
  * 
@@ -104,7 +103,6 @@ enum XPLMProbeResult: int {
  *
  */
 typedef void * XPLMProbeRef;
-
 /*
  * XPLMProbeInfo_t
  * 
@@ -139,7 +137,6 @@ typedef struct {
     /* Tells if the surface we hit is water (otherwise it is land).               */
      int                       is_wet;
 } XPLMProbeInfo_t;
-
 /*
  * XPLMCreateProbe
  * 
@@ -157,7 +154,6 @@ XPLM_API XPLMProbeRef XPLMCreateProbe(
  */
 XPLM_API void       XPLMDestroyProbe(
                          XPLMProbeRef         inProbe);
-
 /*
  * XPLMProbeTerrainXYZ
  * 
@@ -173,7 +169,6 @@ XPLM_API enum XPLMProbeResult XPLMProbeTerrainXYZ(
                          float                inY,
                          float                inZ,
                          XPLMProbeInfo_t *    outInfo);
-
 #endif /* XPLM200 */
 #if defined(XPLM300)
 /***************************************************************************
@@ -193,7 +188,6 @@ XPLM_API enum XPLMProbeResult XPLMProbeTerrainXYZ(
  *
  */
 
-
 /*
  * XPLMGetMagneticVariation
  * 
@@ -204,7 +198,6 @@ XPLM_API enum XPLMProbeResult XPLMProbeTerrainXYZ(
 XPLM_API float      XPLMGetMagneticVariation(
                          double               latitude,
                          double               longitude);
-
 /*
  * XPLMDegTrueToDegMagnetic
  * 
@@ -214,7 +207,6 @@ XPLM_API float      XPLMGetMagneticVariation(
  */
 XPLM_API float      XPLMDegTrueToDegMagnetic(
                          float                headingDegreesTrue);
-
 /*
  * XPLMDegMagneticToDegTrue
  * 
@@ -224,7 +216,6 @@ XPLM_API float      XPLMDegTrueToDegMagnetic(
  */
 XPLM_API float      XPLMDegMagneticToDegTrue(
                          float                headingDegreesMagnetic);
-
 #endif /* XPLM300 */
 /***************************************************************************
  * Object Drawing
@@ -237,7 +228,6 @@ XPLM_API float      XPLMDegMagneticToDegTrue(
  *
  */
 
-
 #if defined(XPLM200)
 /*
  * XPLMObjectRef
@@ -248,7 +238,6 @@ XPLM_API float      XPLMDegMagneticToDegTrue(
  */
 typedef void * XPLMObjectRef;
 #endif /* XPLM200 */
-
 #if defined(XPLM200)
 /*
  * XPLMDrawInfo_t
@@ -275,7 +264,6 @@ typedef struct {
      float                     roll;
 } XPLMDrawInfo_t;
 #endif /* XPLM200 */
-
 #if defined(XPLM420)
 /*
  * XPLMDrawInfoDouble_t
@@ -302,7 +290,6 @@ typedef struct {
      double                    roll;
 } XPLMDrawInfoDouble_t;
 #endif /* XPLM420 */
-
 #if defined(XPLM210)
 /*
  * XPLMObjectLoaded_f
@@ -321,7 +308,6 @@ typedef void (* XPLMObjectLoaded_f)(
                          XPLMObjectRef        inObject,
                          void *               inRefcon);
 #endif /* XPLM210 */
-
 #if defined(XPLM200)
 /*
  * XPLMLoadObject
@@ -349,7 +335,6 @@ typedef void (* XPLMObjectLoaded_f)(
 XPLM_API XPLMObjectRef XPLMLoadObject(
                          const char *         inPath);
 #endif /* XPLM200 */
-
 #if defined(XPLM210)
 /*
  * XPLMLoadObjectAsync
@@ -373,8 +358,7 @@ XPLM_API void       XPLMLoadObjectAsync(
                          XPLMObjectLoaded_f   inCallback,
                          void *               inRefcon);
 #endif /* XPLM210 */
-
-#if defined(XPLM_DEPRECATED)
+#if defined(XPLM_DEPRECATED) && defined(XPLM200)
 /*
  * XPLMDrawObjects
  * 
@@ -404,11 +388,10 @@ XPLM_API void       XPLMLoadObjectAsync(
 XPLM_API void       XPLMDrawObjects(
                          XPLMObjectRef        inObject,
                          int                  inCount,
-                         XPLMDrawInfo_t *     inLocations,
+                         const XPLMDrawInfo_t * inLocations,
                          int                  lighting,
                          int                  earth_relative);
 #endif /* XPLM_DEPRECATED */
-
 #if defined(XPLM200)
 /*
  * XPLMUnloadObject
@@ -422,7 +405,6 @@ XPLM_API void       XPLMDrawObjects(
 XPLM_API void       XPLMUnloadObject(
                          XPLMObjectRef        inObject);
 #endif /* XPLM200 */
-
 #if defined(XPLM200)
 /***************************************************************************
  * Library Access
@@ -435,7 +417,6 @@ XPLM_API void       XPLMUnloadObject(
  *
  */
 
-
 /*
  * XPLMLibraryEnumerator_f
  * 
@@ -447,7 +428,6 @@ XPLM_API void       XPLMUnloadObject(
 typedef void (* XPLMLibraryEnumerator_f)(
                          const char *         inFilePath,
                          void *               inRef);
-
 /*
  * XPLMLookupObjects
  * 
@@ -468,7 +448,6 @@ XPLM_API int        XPLMLookupObjects(
                          float                inLongitude,
                          XPLMLibraryEnumerator_f enumerator,
                          void *               ref);
-
 #endif /* XPLM200 */
 #ifdef __cplusplus
 }

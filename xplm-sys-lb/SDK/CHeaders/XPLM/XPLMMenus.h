@@ -2,7 +2,7 @@
 #define _XPLMMenus_h_
 
 /*
- * Copyright 2005-2022 Laminar Research, Sandy Barbour and Ben Supnik All
+ * Copyright 2005-2025 Laminar Research, Sandy Barbour and Ben Supnik All
  * rights reserved.  See license.txt for usage. X-Plane SDK Version: 4.0.0
  *
  */
@@ -80,7 +80,6 @@ enum XPLMMenuCheck: int {
  *
  */
 typedef void * XPLMMenuID;
-
 /*
  * XPLMMenuHandler_f
  * 
@@ -92,7 +91,6 @@ typedef void * XPLMMenuID;
 typedef void (* XPLMMenuHandler_f)(
                          void *               inMenuRef,
                          void *               inItemRef);
-
 /*
  * XPLMFindPluginsMenu
  * 
@@ -101,7 +99,6 @@ typedef void (* XPLMMenuHandler_f)(
  *
  */
 XPLM_API XPLMMenuID XPLMFindPluginsMenu(void);
-
 #if defined(XPLM300)
 /*
  * XPLMFindAircraftMenu
@@ -120,7 +117,6 @@ XPLM_API XPLMMenuID XPLMFindPluginsMenu(void);
  */
 XPLM_API XPLMMenuID XPLMFindAircraftMenu(void);
 #endif /* XPLM300 */
-
 /*
  * XPLMCreateMenu
  * 
@@ -142,7 +138,6 @@ XPLM_API XPLMMenuID XPLMCreateMenu(
                          int                  inParentItem,
                          XPLMMenuHandler_f    inHandler,
                          void *               inMenuRef);
-
 /*
  * XPLMDestroyMenu
  * 
@@ -152,7 +147,6 @@ XPLM_API XPLMMenuID XPLMCreateMenu(
  */
 XPLM_API void       XPLMDestroyMenu(
                          XPLMMenuID           inMenuID);
-
 /*
  * XPLMClearAllMenuItems
  * 
@@ -162,7 +156,6 @@ XPLM_API void       XPLMDestroyMenu(
  */
 XPLM_API void       XPLMClearAllMenuItems(
                          XPLMMenuID           inMenuID);
-
 /*
  * XPLMAppendMenuItem
  * 
@@ -187,7 +180,6 @@ XPLM_API int        XPLMAppendMenuItem(
                          const char *         inItemName,
                          void *               inItemRef,
                          int                  inDeprecatedAndIgnored);
-
 #if defined(XPLM300)
 /*
  * XPLMAppendMenuItemWithCommand
@@ -210,7 +202,6 @@ XPLM_API int        XPLMAppendMenuItemWithCommand(
                          const char *         inItemName,
                          XPLMCommandRef       inCommandToExecute);
 #endif /* XPLM300 */
-
 /*
  * XPLMAppendMenuSeparator
  * 
@@ -222,7 +213,6 @@ XPLM_API int        XPLMAppendMenuItemWithCommand(
  */
 XPLM_API void       XPLMAppendMenuSeparator(
                          XPLMMenuID           inMenu);
-
 /*
  * XPLMSetMenuItemName
  * 
@@ -235,7 +225,6 @@ XPLM_API void       XPLMSetMenuItemName(
                          int                  inIndex,
                          const char *         inItemName,
                          int                  inDeprecatedAndIgnored);
-
 /*
  * XPLMCheckMenuItem
  * 
@@ -269,7 +258,6 @@ XPLM_API void       XPLMEnableMenuItem(
                          XPLMMenuID           inMenu,
                          int                  index,
                          int                  enabled);
-
 #if defined(XPLM210)
 /*
  * XPLMRemoveMenuItem
@@ -282,7 +270,6 @@ XPLM_API void       XPLMRemoveMenuItem(
                          XPLMMenuID           inMenu,
                          int                  inIndex);
 #endif /* XPLM210 */
-
 #ifdef __cplusplus
 }
 #endif

@@ -2,7 +2,7 @@
 #define _XPLMCamera_h_
 
 /*
- * Copyright 2005-2022 Laminar Research, Sandy Barbour and Ben Supnik All
+ * Copyright 2005-2025 Laminar Research, Sandy Barbour and Ben Supnik All
  * rights reserved.  See license.txt for usage. X-Plane SDK Version: 4.0.0
  *
  */
@@ -94,7 +94,6 @@ typedef struct {
      float                     roll;
      float                     zoom;
 } XPLMCameraPosition_t;
-
 /*
  * XPLMCameraControl_f
  * 
@@ -113,7 +112,6 @@ typedef int (* XPLMCameraControl_f)(
                          XPLMCameraPosition_t * outCameraPosition,      /* Can be NULL */
                          int                  inIsLosingControl,
                          void *               inRefcon);
-
 /*
  * XPLMControlCamera
  * 
@@ -126,7 +124,6 @@ XPLM_API void       XPLMControlCamera(
                          enum XPLMCameraControlDuration inHowLong,
                          XPLMCameraControl_f  inControlFunc,
                          void *               inRefcon);
-
 /*
  * XPLMDontControlCamera
  * 
@@ -139,7 +136,6 @@ XPLM_API void       XPLMControlCamera(
  *
  */
 XPLM_API void       XPLMDontControlCamera(void);
-
 /*
  * XPLMIsCameraBeingControlled
  * 
@@ -159,7 +155,6 @@ XPLM_API int        XPLMIsCameraBeingControlled(
  */
 XPLM_API void       XPLMReadCameraPosition(
                          XPLMCameraPosition_t * outCameraPosition);
-
 #ifdef __cplusplus
 }
 #endif

@@ -2,7 +2,7 @@
 #define _XPLMDisplay_h_
 
 /*
- * Copyright 2005-2022 Laminar Research, Sandy Barbour and Ben Supnik All
+ * Copyright 2005-2025 Laminar Research, Sandy Barbour and Ben Supnik All
  * rights reserved.  See license.txt for usage. X-Plane SDK Version: 4.0.0
  *
  */
@@ -112,7 +112,6 @@ extern "C" {
  * objects.
  *
  */
-
 
 /*
  * XPLMDrawingPhase
@@ -238,7 +237,6 @@ typedef int (* XPLMDrawCallback_f)(
                          XPLMDrawingPhase     inPhase,
                          int                  inIsBefore,
                          void *               inRefcon);
-
 /*
  * XPLMRegisterDrawCallback
  * 
@@ -259,7 +257,6 @@ XPLM_API int        XPLMRegisterDrawCallback(
                          XPLMDrawingPhase     inPhase,
                          int                  inWantsBefore,
                          void *               inRefcon);
-
 /*
  * XPLMUnregisterDrawCallback
  * 
@@ -278,7 +275,6 @@ XPLM_API int        XPLMUnregisterDrawCallback(
                          XPLMDrawingPhase inPhase,
                          int                  inWantsBefore,
                          void *               inRefcon);
-
 #if defined(XPLM400)
 /***************************************************************************
  * AVIONICS API
@@ -310,7 +306,6 @@ XPLM_API int        XPLMUnregisterDrawCallback(
  * or creating a device.
  *
  */
-
 
 /*
  * XPLMDeviceID
@@ -382,6 +377,11 @@ typedef enum {
 
 } XPLMDeviceID;
 // typedef int XPLMDeviceID;
+#if defined(XPLM430)
+    /* Airbus MCDU 3.                                                             */
+    xplm_device_MCDU_3                       = 24,
+
+#endif /* XPLM430 */
 
 /*
  * XPLMAvionicsCallback_f
@@ -405,7 +405,6 @@ typedef int (* XPLMAvionicsCallback_f)(
                          XPLMDeviceID         inDeviceID,
                          int                  inIsBefore,
                          void *               inRefcon);
-
 #if defined(XPLM410)
 /*
  * XPLMAvionicsMouse_f
@@ -423,7 +422,6 @@ typedef int (* XPLMAvionicsMouse_f)(
                          enum XPLMMouseStatus inMouse,
                          void *               inRefcon);
 #endif /* XPLM410 */
-
 #if defined(XPLM410)
 /*
  * XPLMAvionicsMouseWheel_f
@@ -444,7 +442,6 @@ typedef int (* XPLMAvionicsMouseWheel_f)(
                          int                  clicks,
                          void *               inRefcon);
 #endif /* XPLM410 */
-
 #if defined(XPLM410)
 /*
  * XPLMAvionicsCursor_f
@@ -460,7 +457,6 @@ typedef enum XPLMCursorStatus (* XPLMAvionicsCursor_f)(
                          int                  y,
                          void *               inRefcon);
 #endif /* XPLM410 */
-
 #if defined(XPLM410)
 /*
  * XPLMAvionicsKeyboard_f
@@ -477,7 +473,6 @@ typedef int (* XPLMAvionicsKeyboard_f)(
                          void *               inRefCon,
                          int                  losingFocus);
 #endif /* XPLM410 */
-
 /*
  * XPLMAvionicsID
  * 
@@ -489,7 +484,6 @@ typedef int (* XPLMAvionicsKeyboard_f)(
  *
  */
 typedef void * XPLMAvionicsID;
-
 /*
  * XPLMCustomizeAvionics_t
  * 
@@ -558,7 +552,6 @@ typedef struct {
      * to pass information to yourself as needed.                                 */
      void *                    refcon;
 } XPLMCustomizeAvionics_t;
-
 /*
  * XPLMRegisterAvionicsCallbacksEx
  * 
@@ -576,7 +569,6 @@ typedef struct {
  */
 XPLM_API XPLMAvionicsID XPLMRegisterAvionicsCallbacksEx(
                          XPLMCustomizeAvionics_t * inParams);
-
 /*
  * XPLMGetAvionicsHandle
  * 
@@ -590,7 +582,6 @@ XPLM_API XPLMAvionicsID XPLMRegisterAvionicsCallbacksEx(
  */
 XPLM_API XPLMAvionicsID XPLMGetAvionicsHandle(
                          XPLMDeviceID         inDeviceID);
-
 /*
  * XPLMUnregisterAvionicsCallbacks
  * 
@@ -601,7 +592,6 @@ XPLM_API XPLMAvionicsID XPLMGetAvionicsHandle(
  */
 XPLM_API void       XPLMUnregisterAvionicsCallbacks(
                          XPLMAvionicsID       inAvionicsId);
-
 #if defined(XPLM410)
 /*
  * XPLMAvionicsScreenCallback_f
@@ -620,7 +610,6 @@ XPLM_API void       XPLMUnregisterAvionicsCallbacks(
 typedef void (* XPLMAvionicsScreenCallback_f)(
                          void *               inRefcon);
 #endif /* XPLM410 */
-
 #if defined(XPLM410)
 /*
  * XPLMAvionicsBezelCallback_f
@@ -643,7 +632,6 @@ typedef void (* XPLMAvionicsBezelCallback_f)(
                          float                inAmbiantB,
                          void *               inRefcon);
 #endif /* XPLM410 */
-
 #if defined(XPLM410)
 /*
  * XPLMAvionicsBrightness_f
@@ -676,7 +664,6 @@ typedef float (* XPLMAvionicsBrightness_f)(
                          float                inBusVoltsRatio,
                          void *               inRefcon);
 #endif /* XPLM410 */
-
 #if defined(XPLM410)
 /*
  * XPLMCreateAvionics_t
@@ -751,16 +738,15 @@ typedef struct {
      * ATTR_cockpit_device. The string is copied when you call                    *
      * XPLMCreateAvionicsEx, so you don't need to hold this string in memory after*
      * the call.                                                                  */
-     char *                    deviceID;
+     const char *              deviceID;
     /* A null-terminated string to give a user-readable name to your device, which*
      * can be presented in UI dialogs.                                            */
-     char *                    deviceName;
+     const char *              deviceName;
     /* A reference which will be passed into your draw and mouse callbacks. Use   *
      * this to pass information to yourself as needed.                            */
      void *                    refcon;
 } XPLMCreateAvionics_t;
 #endif /* XPLM410 */
-
 #if defined(XPLM410)
 /*
  * XPLMCreateAvionicsEx
@@ -778,7 +764,6 @@ typedef struct {
 XPLM_API XPLMAvionicsID XPLMCreateAvionicsEx(
                          XPLMCreateAvionics_t * inParams);
 #endif /* XPLM410 */
-
 #if defined(XPLM410)
 /*
  * XPLMDestroyAvionics
@@ -791,7 +776,6 @@ XPLM_API XPLMAvionicsID XPLMCreateAvionicsEx(
 XPLM_API void       XPLMDestroyAvionics(
                          XPLMAvionicsID       inHandle);
 #endif /* XPLM410 */
-
 #if defined(XPLM410)
 /*
  * XPLMIsAvionicsBound
@@ -803,7 +787,6 @@ XPLM_API void       XPLMDestroyAvionics(
 XPLM_API int        XPLMIsAvionicsBound(
                          XPLMAvionicsID       inHandle);
 #endif /* XPLM410 */
-
 #if defined(XPLM410)
 /*
  * XPLMSetAvionicsBrightnessRheo
@@ -826,7 +809,6 @@ XPLM_API void       XPLMSetAvionicsBrightnessRheo(
                          XPLMAvionicsID       inHandle,
                          float                brightness);
 #endif /* XPLM410 */
-
 #if defined(XPLM410)
 /*
  * XPLMGetAvionicsBrightnessRheo
@@ -847,7 +829,6 @@ XPLM_API void       XPLMSetAvionicsBrightnessRheo(
 XPLM_API float      XPLMGetAvionicsBrightnessRheo(
                          XPLMAvionicsID       inHandle);
 #endif /* XPLM410 */
-
 #if defined(XPLM410)
 /*
  * XPLMGetAvionicsBusVoltsRatio
@@ -860,7 +841,6 @@ XPLM_API float      XPLMGetAvionicsBrightnessRheo(
 XPLM_API float      XPLMGetAvionicsBusVoltsRatio(
                          XPLMAvionicsID       inHandle);
 #endif /* XPLM410 */
-
 #if defined(XPLM410)
 /*
  * XPLMIsCursorOverAvionics
@@ -876,7 +856,6 @@ XPLM_API int        XPLMIsCursorOverAvionics(
                          int *                outX,                   /* Can be NULL */
                          int *                outY);                  /* Can be NULL */
 #endif /* XPLM410 */
-
 #if defined(XPLM410)
 /*
  * XPLMAvionicsNeedsDrawing
@@ -890,7 +869,6 @@ XPLM_API int        XPLMIsCursorOverAvionics(
 XPLM_API void       XPLMAvionicsNeedsDrawing(
                          XPLMAvionicsID       inHandle);
 #endif /* XPLM410 */
-
 #if defined(XPLM410)
 /*
  * XPLMSetAvionicsPopupVisible
@@ -902,7 +880,6 @@ XPLM_API void       XPLMSetAvionicsPopupVisible(
                          XPLMAvionicsID       inHandle,
                          int                  inVisible);
 #endif /* XPLM410 */
-
 #if defined(XPLM410)
 /*
  * XPLMIsAvionicsPopupVisible
@@ -913,7 +890,6 @@ XPLM_API void       XPLMSetAvionicsPopupVisible(
 XPLM_API int        XPLMIsAvionicsPopupVisible(
                          XPLMAvionicsID       inHandle);
 #endif /* XPLM410 */
-
 #if defined(XPLM410)
 /*
  * XPLMPopOutAvionics
@@ -924,7 +900,6 @@ XPLM_API int        XPLMIsAvionicsPopupVisible(
 XPLM_API void       XPLMPopOutAvionics(
                          XPLMAvionicsID       inHandle);
 #endif /* XPLM410 */
-
 #if defined(XPLM410)
 /*
  * XPLMIsAvionicsPoppedOut
@@ -935,7 +910,6 @@ XPLM_API void       XPLMPopOutAvionics(
 XPLM_API int        XPLMIsAvionicsPoppedOut(
                          XPLMAvionicsID       inHandle);
 #endif /* XPLM410 */
-
 #if defined(XPLM410)
 /*
  * XPLMTakeAvionicsKeyboardFocus
@@ -947,7 +921,6 @@ XPLM_API int        XPLMIsAvionicsPoppedOut(
 XPLM_API void       XPLMTakeAvionicsKeyboardFocus(
                          XPLMAvionicsID       inHandle);
 #endif /* XPLM410 */
-
 #if defined(XPLM410)
 /*
  * XPLMHasAvionicsKeyboardFocus
@@ -959,7 +932,6 @@ XPLM_API void       XPLMTakeAvionicsKeyboardFocus(
 XPLM_API int        XPLMHasAvionicsKeyboardFocus(
                          XPLMAvionicsID       inHandle);
 #endif /* XPLM410 */
-
 #if defined(XPLM410)
 /*
  * XPLMGetAvionicsGeometry
@@ -975,7 +947,6 @@ XPLM_API void       XPLMGetAvionicsGeometry(
                          int *                outRight,               /* Can be NULL */
                          int *                outBottom);             /* Can be NULL */
 #endif /* XPLM410 */
-
 #if defined(XPLM410)
 /*
  * XPLMSetAvionicsGeometry
@@ -991,7 +962,6 @@ XPLM_API void       XPLMSetAvionicsGeometry(
                          int                  inRight,
                          int                  inBottom);
 #endif /* XPLM410 */
-
 #if defined(XPLM410)
 /*
  * XPLMGetAvionicsGeometryOS
@@ -1006,7 +976,6 @@ XPLM_API void       XPLMGetAvionicsGeometryOS(
                          int *                outRight,               /* Can be NULL */
                          int *                outBottom);             /* Can be NULL */
 #endif /* XPLM410 */
-
 #if defined(XPLM410)
 /*
  * XPLMSetAvionicsGeometryOS
@@ -1021,7 +990,6 @@ XPLM_API void       XPLMSetAvionicsGeometryOS(
                          int                  inRight,
                          int                  inBottom);
 #endif /* XPLM410 */
-
 #endif /* XPLM400 */
 /***************************************************************************
  * WINDOW API
@@ -1062,7 +1030,6 @@ XPLM_API void       XPLMSetAvionicsGeometryOS(
  *
  */
 
-
 /*
  * XPLMWindowID
  * 
@@ -1073,7 +1040,6 @@ XPLM_API void       XPLMSetAvionicsGeometryOS(
  *
  */
 typedef void * XPLMWindowID;
-
 /*
  * XPLMDrawWindow_f
  * 
@@ -1091,7 +1057,6 @@ typedef void * XPLMWindowID;
 typedef void (* XPLMDrawWindow_f)(
                          XPLMWindowID         inWindowID,
                          void *               inRefcon);
-
 /*
  * XPLMHandleKey_f
  * 
@@ -1121,7 +1086,6 @@ typedef void (* XPLMHandleKey_f)(
                          char                 inVirtualKey,
                          void *               inRefcon,
                          int                  losingFocus);
-
 /*
  * XPLMHandleMouseClick_f
  * 
@@ -1153,7 +1117,6 @@ typedef int (* XPLMHandleMouseClick_f)(
                          int                  y,
                          enum XPLMMouseStatus inMouse,
                          void *               inRefcon);
-
 #if defined(XPLM200)
 /*
  * XPLMHandleCursor_f
@@ -1191,7 +1154,6 @@ typedef enum XPLMCursorStatus (* XPLMHandleCursor_f)(
                          int                  y,
                          void *               inRefcon);
 #endif /* XPLM200 */
-
 #if defined(XPLM200)
 /*
  * XPLMHandleMouseWheel_f
@@ -1221,7 +1183,6 @@ typedef int (* XPLMHandleMouseWheel_f)(
                          int                  clicks,
                          void *               inRefcon);
 #endif /* XPLM200 */
-
 #if defined(XPLM300)
 /*
  * XPLMWindowLayer
@@ -1371,7 +1332,6 @@ typedef struct {
 #endif /* XPLM300 */
 } XPLMCreateWindow_t;
 #endif /* XPLM200 */
-
 #if defined(XPLM200)
 /*
  * XPLMCreateWindowEx
@@ -1387,7 +1347,6 @@ typedef struct {
 XPLM_API XPLMWindowID XPLMCreateWindowEx(
                          XPLMCreateWindow_t * inParams);
 #endif /* XPLM200 */
-
 /*
  * XPLMCreateWindow
  * 
@@ -1420,7 +1379,6 @@ XPLM_API XPLMWindowID XPLMCreateWindow(
                          XPLMHandleKey_f      inKeyCallback,
                          XPLMHandleMouseClick_f inMouseCallback,
                          void *               inRefcon);
-
 /*
  * XPLMDestroyWindow
  * 
@@ -1431,7 +1389,6 @@ XPLM_API XPLMWindowID XPLMCreateWindow(
  */
 XPLM_API void       XPLMDestroyWindow(
                          XPLMWindowID         inWindowID);
-
 /*
  * XPLMGetScreenSize
  * 
@@ -1443,7 +1400,6 @@ XPLM_API void       XPLMDestroyWindow(
 XPLM_API void       XPLMGetScreenSize(
                          int *                outWidth,               /* Can be NULL */
                          int *                outHeight);             /* Can be NULL */
-
 #if defined(XPLM300)
 /*
  * XPLMGetScreenBoundsGlobal
@@ -1484,7 +1440,6 @@ XPLM_API void       XPLMGetScreenBoundsGlobal(
                          int *                outRight,               /* Can be NULL */
                          int *                outBottom);             /* Can be NULL */
 #endif /* XPLM300 */
-
 #if defined(XPLM300)
 /*
  * XPLMReceiveMonitorBoundsGlobal_f
@@ -1503,7 +1458,6 @@ typedef void (* XPLMReceiveMonitorBoundsGlobal_f)(
                          int                  inBottomBx,
                          void *               inRefcon);
 #endif /* XPLM300 */
-
 #if defined(XPLM300)
 /*
  * XPLMGetAllMonitorBoundsGlobal
@@ -1533,7 +1487,6 @@ XPLM_API void       XPLMGetAllMonitorBoundsGlobal(
                          XPLMReceiveMonitorBoundsGlobal_f inMonitorBoundsCallback,
                          void *               inRefcon);
 #endif /* XPLM300 */
-
 #if defined(XPLM300)
 /*
  * XPLMReceiveMonitorBoundsOS_f
@@ -1553,7 +1506,6 @@ typedef void (* XPLMReceiveMonitorBoundsOS_f)(
                          int                  inBottomPx,
                          void *               inRefcon);
 #endif /* XPLM300 */
-
 #if defined(XPLM300)
 /*
  * XPLMGetAllMonitorBoundsOS
@@ -1573,7 +1525,6 @@ XPLM_API void       XPLMGetAllMonitorBoundsOS(
                          XPLMReceiveMonitorBoundsOS_f inMonitorBoundsCallback,
                          void *               inRefcon);
 #endif /* XPLM300 */
-
 /*
  * XPLMGetMouseLocation
  * 
@@ -1597,7 +1548,6 @@ XPLM_API void       XPLMGetAllMonitorBoundsOS(
 XPLM_API void       XPLMGetMouseLocation(
                          int *                outX,                   /* Can be NULL */
                          int *                outY);                  /* Can be NULL */
-
 #if defined(XPLM300)
 /*
  * XPLMGetMouseLocationGlobal
@@ -1620,7 +1570,6 @@ XPLM_API void       XPLMGetMouseLocationGlobal(
                          int *                outX,                   /* Can be NULL */
                          int *                outY);                  /* Can be NULL */
 #endif /* XPLM300 */
-
 /*
  * XPLMGetWindowGeometry
  * 
@@ -1645,7 +1594,6 @@ XPLM_API void       XPLMGetWindowGeometry(
                          int *                outTop,                 /* Can be NULL */
                          int *                outRight,               /* Can be NULL */
                          int *                outBottom);             /* Can be NULL */
-
 /*
  * XPLMSetWindowGeometry
  * 
@@ -1668,7 +1616,6 @@ XPLM_API void       XPLMSetWindowGeometry(
                          int                  inTop,
                          int                  inRight,
                          int                  inBottom);
-
 #if defined(XPLM300)
 /*
  * XPLMGetWindowGeometryOS
@@ -1685,7 +1632,6 @@ XPLM_API void       XPLMGetWindowGeometryOS(
                          int *                outRight,               /* Can be NULL */
                          int *                outBottom);             /* Can be NULL */
 #endif /* XPLM300 */
-
 #if defined(XPLM300)
 /*
  * XPLMSetWindowGeometryOS
@@ -1707,7 +1653,6 @@ XPLM_API void       XPLMSetWindowGeometryOS(
                          int                  inRight,
                          int                  inBottom);
 #endif /* XPLM300 */
-
 #if defined(XPLM301)
 /*
  * XPLMGetWindowGeometryVR
@@ -1722,7 +1667,6 @@ XPLM_API void       XPLMGetWindowGeometryVR(
                          int *                outWidthBoxels,         /* Can be NULL */
                          int *                outHeightBoxels);       /* Can be NULL */
 #endif /* XPLM301 */
-
 #if defined(XPLM301)
 /*
  * XPLMSetWindowGeometryVR
@@ -1739,7 +1683,6 @@ XPLM_API void       XPLMSetWindowGeometryVR(
                          int                  widthBoxels,
                          int                  heightBoxels);
 #endif /* XPLM301 */
-
 /*
  * XPLMGetWindowIsVisible
  * 
@@ -1748,7 +1691,6 @@ XPLM_API void       XPLMSetWindowGeometryVR(
  */
 XPLM_API int        XPLMGetWindowIsVisible(
                          XPLMWindowID         inWindowID);
-
 /*
  * XPLMSetWindowIsVisible
  * 
@@ -1758,7 +1700,6 @@ XPLM_API int        XPLMGetWindowIsVisible(
 XPLM_API void       XPLMSetWindowIsVisible(
                          XPLMWindowID         inWindowID,
                          int                  inIsVisible);
-
 #if defined(XPLM300)
 /*
  * XPLMWindowIsPoppedOut
@@ -1775,7 +1716,6 @@ XPLM_API void       XPLMSetWindowIsVisible(
 XPLM_API int        XPLMWindowIsPoppedOut(
                          XPLMWindowID         inWindowID);
 #endif /* XPLM300 */
-
 #if defined(XPLM301)
 /*
  * XPLMWindowIsInVR
@@ -1792,7 +1732,6 @@ XPLM_API int        XPLMWindowIsPoppedOut(
 XPLM_API int        XPLMWindowIsInVR(
                          XPLMWindowID         inWindowID);
 #endif /* XPLM301 */
-
 #if defined(XPLM300)
 /*
  * XPLMSetWindowGravity
@@ -1824,7 +1763,6 @@ XPLM_API void       XPLMSetWindowGravity(
                          float                inRightGravity,
                          float                inBottomGravity);
 #endif /* XPLM300 */
-
 #if defined(XPLM300)
 /*
  * XPLMSetWindowResizingLimits
@@ -1846,7 +1784,6 @@ XPLM_API void       XPLMSetWindowResizingLimits(
                          int                  inMaxWidthBoxels,
                          int                  inMaxHeightBoxels);
 #endif /* XPLM300 */
-
 #if defined(XPLM300)
 /*
  * XPLMWindowPositioningMode
@@ -1892,7 +1829,6 @@ enum XPLMWindowPositioningMode: int{
 };
 //typedef int XPLMWindowPositioningMode;
 #endif /* XPLM300 */
-
 #if defined(XPLM300)
 /*
  * XPLMSetWindowPositioningMode
@@ -1916,7 +1852,6 @@ XPLM_API void       XPLMSetWindowPositioningMode(
                          enum XPLMWindowPositioningMode inPositioningMode,
                          int                  inMonitorIndex);
 #endif /* XPLM300 */
-
 #if defined(XPLM300)
 /*
  * XPLMSetWindowTitle
@@ -1931,7 +1866,6 @@ XPLM_API void       XPLMSetWindowTitle(
                          XPLMWindowID         inWindowID,
                          const char *         inWindowTitle);
 #endif /* XPLM300 */
-
 /*
  * XPLMGetWindowRefCon
  * 
@@ -1941,7 +1875,6 @@ XPLM_API void       XPLMSetWindowTitle(
  */
 XPLM_API void *     XPLMGetWindowRefCon(
                          XPLMWindowID         inWindowID);
-
 /*
  * XPLMSetWindowRefCon
  * 
@@ -1952,7 +1885,6 @@ XPLM_API void *     XPLMGetWindowRefCon(
 XPLM_API void       XPLMSetWindowRefCon(
                          XPLMWindowID         inWindowID,
                          void *               inRefcon);
-
 /*
  * XPLMTakeKeyboardFocus
  * 
@@ -1964,7 +1896,6 @@ XPLM_API void       XPLMSetWindowRefCon(
  */
 XPLM_API void       XPLMTakeKeyboardFocus(
                          XPLMWindowID         inWindow);
-
 /*
  * XPLMHasKeyboardFocus
  * 
@@ -1975,7 +1906,6 @@ XPLM_API void       XPLMTakeKeyboardFocus(
  */
 XPLM_API int        XPLMHasKeyboardFocus(
                          XPLMWindowID         inWindow);
-
 /*
  * XPLMBringWindowToFront
  * 
@@ -1995,7 +1925,6 @@ XPLM_API int        XPLMHasKeyboardFocus(
  */
 XPLM_API void       XPLMBringWindowToFront(
                          XPLMWindowID         inWindow);
-
 /*
  * XPLMIsWindowInFront
  * 
@@ -2017,7 +1946,6 @@ XPLM_API void       XPLMBringWindowToFront(
  */
 XPLM_API int        XPLMIsWindowInFront(
                          XPLMWindowID         inWindow);
-
 /***************************************************************************
  * KEY SNIFFERS
  ***************************************************************************/
@@ -2026,7 +1954,6 @@ XPLM_API int        XPLMIsWindowInFront(
  * normal rules of the user interface.
  *
  */
-
 
 /*
  * XPLMKeySniffer_f
@@ -2055,7 +1982,6 @@ typedef int (* XPLMKeySniffer_f)(
                          XPLMKeyFlags         inFlags,
                          char                 inVirtualKey,
                          void *               inRefcon);
-
 /*
  * XPLMRegisterKeySniffer
  * 
@@ -2072,7 +1998,6 @@ XPLM_API int        XPLMRegisterKeySniffer(
                          XPLMKeySniffer_f     inCallback,
                          int                  inBeforeWindows,
                          void *               inRefcon);
-
 /*
  * XPLMUnregisterKeySniffer
  * 
@@ -2085,7 +2010,6 @@ XPLM_API int        XPLMUnregisterKeySniffer(
                          XPLMKeySniffer_f     inCallback,
                          int                  inBeforeWindows,
                          void *               inRefcon);
-
 /***************************************************************************
  * HOT KEYS
  ***************************************************************************/
@@ -2096,7 +2020,6 @@ XPLM_API int        XPLMUnregisterKeySniffer(
  *
  */
 
-
 /*
  * XPLMHotKey_f
  * 
@@ -2105,7 +2028,6 @@ XPLM_API int        XPLMUnregisterKeySniffer(
  */
 typedef void (* XPLMHotKey_f)(
                          void *               inRefcon);
-
 /*
  * XPLMHotKeyID
  * 
@@ -2113,7 +2035,6 @@ typedef void (* XPLMHotKey_f)(
  *
  */
 typedef void * XPLMHotKeyID;
-
 /*
  * XPLMRegisterHotKey
  * 
@@ -2131,7 +2052,6 @@ XPLM_API XPLMHotKeyID XPLMRegisterHotKey(
                          const char *         inDescription,
                          XPLMHotKey_f         inCallback,
                          void *               inRefcon);
-
 /*
  * XPLMUnregisterHotKey
  * 
@@ -2140,7 +2060,6 @@ XPLM_API XPLMHotKeyID XPLMRegisterHotKey(
  */
 XPLM_API void       XPLMUnregisterHotKey(
                          XPLMHotKeyID         inHotKey);
-
 /*
  * XPLMCountHotKeys
  * 
@@ -2148,7 +2067,6 @@ XPLM_API void       XPLMUnregisterHotKey(
  *
  */
 XPLM_API int        XPLMCountHotKeys(void);
-
 /*
  * XPLMGetNthHotKey
  * 
@@ -2157,7 +2075,6 @@ XPLM_API int        XPLMCountHotKeys(void);
  */
 XPLM_API XPLMHotKeyID XPLMGetNthHotKey(
                          int                  inIndex);
-
 /*
  * XPLMGetHotKeyInfo
  * 
@@ -2171,7 +2088,6 @@ XPLM_API void       XPLMGetHotKeyInfo(
                          XPLMKeyFlags *       outFlags,               /* Can be NULL */
                          char *               outDescription,         /* Can be NULL */
                          XPLMPluginID *       outPlugin);             /* Can be NULL */
-
 /*
  * XPLMSetHotKeyCombination
  * 
@@ -2182,7 +2098,6 @@ XPLM_API void       XPLMSetHotKeyCombination(
                          XPLMHotKeyID         inHotKey,
                          char                 inVirtualKey,
                          XPLMKeyFlags         inFlags);
-
 #ifdef __cplusplus
 }
 #endif

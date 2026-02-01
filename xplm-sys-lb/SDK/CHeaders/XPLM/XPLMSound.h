@@ -2,7 +2,7 @@
 #define _XPLMSound_h_
 
 /*
- * Copyright 2005-2022 Laminar Research, Sandy Barbour and Ben Supnik All
+ * Copyright 2005-2025 Laminar Research, Sandy Barbour and Ben Supnik All
  * rights reserved.  See license.txt for usage. X-Plane SDK Version: 4.0.0
  *
  */
@@ -108,7 +108,6 @@ enum XPLMBankID: int{
  *            with their C++ equivalents. See https://www.fmod.com/docs/2.02/api/white-papers-handle-system.html .
  */
 #if defined(_FMOD_COMMON_H)
-
 /*
  * XPLMGetFMODStudio
  * 
@@ -123,7 +122,6 @@ enum XPLMBankID: int{
  *
  */
 XPLM_API FMOD_STUDIO_SYSTEM* XPLMGetFMODStudio(void);
-
 /*
  * XPLMGetFMODChannelGroup
  * 
@@ -133,7 +131,6 @@ XPLM_API FMOD_STUDIO_SYSTEM* XPLMGetFMODStudio(void);
  */
 XPLM_API FMOD_CHANNELGROUP* XPLMGetFMODChannelGroup(
                          XPLMAudioBus         audioType);
-
 
 #else
 /*
@@ -157,7 +154,6 @@ typedef struct FMOD_VECTOR
 } FMOD_VECTOR;
 typedef void FMOD_CHANNEL;
 #endif
-
 /*
  * XPLMPCMComplete_f
  * 
@@ -198,7 +194,6 @@ XPLM_API FMOD_CHANNEL* XPLMPlayPCMOnBus(
                          enum XPLMAudioBus         audioType,
                          XPLMPCMComplete_f    inCallback,
                          void *               inRefcon);              /* Can be NULL */
-
 /*
  * XPLMStopAudio
  * 
@@ -209,7 +204,6 @@ XPLM_API FMOD_CHANNEL* XPLMPlayPCMOnBus(
  */
 XPLM_API enum FMOD_RESULT XPLMStopAudio(
                          FMOD_CHANNEL*        fmod_channel);
-
 /*
  * XPLMSetAudioPosition
  * 
@@ -237,7 +231,6 @@ XPLM_API enum FMOD_RESULT XPLMSetAudioFadeDistance(
                          FMOD_CHANNEL*        fmod_channel,
                          float                min_fade_distance,
                          float                max_fade_distance);
-
 /*
  * XPLMSetAudioVolume
  * 
@@ -250,7 +243,6 @@ XPLM_API enum FMOD_RESULT XPLMSetAudioFadeDistance(
 XPLM_API enum FMOD_RESULT XPLMSetAudioVolume(
                          FMOD_CHANNEL*        fmod_channel,
                          float                source_volume);
-
 /*
  * XPLMSetAudioPitch
  * 
@@ -260,7 +252,6 @@ XPLM_API enum FMOD_RESULT XPLMSetAudioVolume(
 XPLM_API enum FMOD_RESULT XPLMSetAudioPitch(
                          FMOD_CHANNEL*        fmod_channel,
                          float                audio_pitch_hz);
-
 /*
  * XPLMSetAudioCone
  * 

@@ -2,7 +2,7 @@
 #define _XPLMWeather_h_
 
 /*
- * Copyright 2005-2022 Laminar Research, Sandy Barbour and Ben Supnik All
+ * Copyright 2005-2025 Laminar Research, Sandy Barbour and Ben Supnik All
  * rights reserved.  See license.txt for usage. X-Plane SDK Version: 4.0.0
  *
  */
@@ -52,7 +52,6 @@ typedef struct {
     /* Clear-air turbulence ratio                                                 */
      float                     turbulence;
 } XPLMWeatherInfoWinds_t;
-
 /*
  * XPLMWeatherInfoClouds_t
  *
@@ -67,38 +66,31 @@ typedef struct {
     /* Altitude MSL, meters                                                       */
      float                     alt_base;
 } XPLMWeatherInfoClouds_t;
-
 /* The number of wind layers that are expected in the latest version of       *
  * XPLMWeatherInfo_t .                                                        */
 #define XPLM_NUM_WIND_LAYERS 13
-
 /* The number of cloud layers that are expected in the latest version of      *
  * XPLMWeatherInfo_t .                                                        */
 #define XPLM_NUM_CLOUD_LAYERS 3
-
 #if defined(XPLM420)
 /* The number of temperature layers that are expected in the latest version of*
  * XPLMWeatherInfo_t .                                                        */
 #define XPLM_NUM_TEMPERATURE_LAYERS 13
 #endif /* XPLM420 */
-
 #if defined(XPLM420)
 /* Use this value to designate a wind layer as undefined when setting.        */
 #define XPLM_WIND_UNDEFINED_LAYER -1
 #endif /* XPLM420 */
-
 #if defined(XPLM420)
 /* Default radius of weather data points set using XPLMSetWeatherAtLocation   *
  * and XPLMSetWeatherAtAirport.                                               */
 #define XPLM_DEFAULT_WXR_RADIUS_NM 30
 #endif /* XPLM420 */
-
 #if defined(XPLM420)
 /* Default vertical radius of effect of weather data points set using         *
  * XPLMSetWeatherAtLocation and XPLMSetWeatherAtAirport.                      */
 #define XPLM_DEFAULT_WXR_RADIUS_MSL_FT 10000
 #endif /* XPLM420 */
-
 /*
  * XPLMWeatherInfo_t
  * 
@@ -176,11 +168,10 @@ typedef struct {
      float                     radius_nm;
 #endif /* XPLM420 */
 #if defined(XPLM420)
-    /* Vertical radius of effect of this weather report, feet MSL.                */
+    /* Vertical limit of effect of this weather report, feet MSL.                 */
      float                     max_altitude_msl_ft;
 #endif /* XPLM420 */
 } XPLMWeatherInfo_t;
-
 /*
  * XPLMGetMETARForAirport
  * 
@@ -197,7 +188,6 @@ typedef struct {
 XPLM_API void       XPLMGetMETARForAirport(
                          const char *         airport_id,
                          XPLMFixedString150_t * outMETAR);
-
 /*
  * XPLMGetWeatherAtLocation
  * 
@@ -215,7 +205,6 @@ XPLM_API int        XPLMGetWeatherAtLocation(
                          double               longitude,
                          double               altitude_m,
                          XPLMWeatherInfo_t *  out_info);
-
 #if defined(XPLM420)
 /*
  * XPLMBeginWeatherUpdate
@@ -234,7 +223,6 @@ XPLM_API int        XPLMGetWeatherAtLocation(
  */
 XPLM_API void       XPLMBeginWeatherUpdate(void);
 #endif /* XPLM420 */
-
 #if defined(XPLM420)
 /*
  * XPLMEndWeatherUpdate
@@ -267,7 +255,6 @@ XPLM_API void       XPLMEndWeatherUpdate(
                          int                  isIncremental,
                          int                  updateImmediately);
 #endif /* XPLM420 */
-
 #if defined(XPLM420)
 /*
  * XPLMSetWeatherAtLocation
@@ -286,7 +273,6 @@ XPLM_API void       XPLMSetWeatherAtLocation(
                          double               altitude_m,
                          XPLMWeatherInfo_t *  in_info);
 #endif /* XPLM420 */
-
 #if defined(XPLM420)
 /*
  * XPLMEraseWeatherAtLocation
@@ -303,7 +289,6 @@ XPLM_API void       XPLMEraseWeatherAtLocation(
                          double               latitude,
                          double               longitude);
 #endif /* XPLM420 */
-
 #if defined(XPLM420)
 /*
  * XPLMSetWeatherAtAirport
@@ -321,16 +306,27 @@ XPLM_API void       XPLMEraseWeatherAtLocation(
  *   - wind_dir_alt, wind_spd_alt, turbulence_alt, wave_speed, wave_length are
  *     derived from other data and are UNUSED when setting weather.
  *   - Temperatures can be given either as a single temperature at the ground
- *     altitude (temperature_alt) OR as an array of temperatures aloft
- *     (temp_layers), if the struct is V2 or higher. If you wish to use the V2
- *     struct and still provide a single ground-level temperature, pass -100
- *     or lower as the first element of the temp_layers array. In this case,
- *     existing weather at that point will be used for temperatures at
- *     altitude.
+ *     altitude (temperature_alt) OR, if the struct is V2 or higher, as an
+ *     array of temperatures aloft (temp_layers). If you pass a value for
+ *     temperature_alt higher than -273.15 (absolute zero), that will be used
+ *     with the altitude value to calculate an offset from ISA temperature at
+ *     all altitudes. Any layer in temp_layers for which you set the
+ *     temperature higher than -273.15 (absolute zero) will use that
+ *     temperature and all others will use the existing value for the
+ *     location, or the calculated values from temperature_alt if you also
+ *     passed that. It is advised to use a lower value than exactly -273.15 to
+ *     avoid floating-point precision errors. These calculated temperatures
+ *     during a read are also affected by the troposphere altitude and
+ *     temperature, and the vertical radius of effect. Do not expect to get
+ *     the exact values you set.
  *   - The same rules apply to dewpoint temperatures; either a single value at
  *     ground level in 'dewpoint_alt', or per-layer values in 'dewp_layers'.
  *   - The troposphere altitude and temperature will be derived from existing
- *     data if you pass 0 or lower for troposphere_alt.
+ *     data if you pass 0 or lower for troposphere_alt. Both altitude and
+ *     temperature may be clamped to internally-defined ranges.
+ *   - When setting both temperature and dewpoint from a single value
+ *     (temperature_alt/dewpoint_alt), the rest of the atmosphere will be
+ *     graded to fit between the given values and the troposphere.
  * 
  * This call is not intended to be used per-frame. It should be called only
  * during the pre-flight loop callback.
@@ -340,7 +336,6 @@ XPLM_API void       XPLMSetWeatherAtAirport(
                          const char *         airport_id,
                          XPLMWeatherInfo_t *  in_info);
 #endif /* XPLM420 */
-
 #if defined(XPLM420)
 /*
  * XPLMEraseWeatherAtAirport
@@ -356,7 +351,6 @@ XPLM_API void       XPLMSetWeatherAtAirport(
 XPLM_API void       XPLMEraseWeatherAtAirport(
                          const char *         airport_id);
 #endif /* XPLM420 */
-
 #endif /* XPLM400 */
 #ifdef __cplusplus
 }

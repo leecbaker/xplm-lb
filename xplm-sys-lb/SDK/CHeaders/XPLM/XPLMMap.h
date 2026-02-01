@@ -2,7 +2,7 @@
 #define _XPLMMap_h_
 
 /*
- * Copyright 2005-2022 Laminar Research, Sandy Barbour and Ben Supnik All
+ * Copyright 2005-2025 Laminar Research, Sandy Barbour and Ben Supnik All
  * rights reserved.  See license.txt for usage. X-Plane SDK Version: 4.0.0
  *
  */
@@ -79,7 +79,6 @@ extern "C" {
  *
  */
 
-
 /*
  * XPLMMapLayerID
  * 
@@ -88,7 +87,6 @@ extern "C" {
  *
  */
 typedef void * XPLMMapLayerID;
-
 /*
  * XPLMMapProjectionID
  * 
@@ -97,7 +95,6 @@ typedef void * XPLMMapLayerID;
  *
  */
 typedef void * XPLMMapProjectionID;
-
 /*
  * XPLMMapStyle
  * 
@@ -143,7 +140,6 @@ typedef void (* XPLMMapDrawingCallback_f)(
                          enum XPLMMapStyle    mapStyle,
                          XPLMMapProjectionID  projection,
                          void *               inRefcon);
-
 /*
  * XPLMMapIconDrawingCallback_f
  * 
@@ -169,7 +165,6 @@ typedef void (* XPLMMapIconDrawingCallback_f)(
                          enum XPLMMapStyle    mapStyle,
                          XPLMMapProjectionID  projection,
                          void *               inRefcon);
-
 /*
  * XPLMMapLabelDrawingCallback_f
  * 
@@ -195,7 +190,6 @@ typedef void (* XPLMMapLabelDrawingCallback_f)(
                          enum XPLMMapStyle    mapStyle,
                          XPLMMapProjectionID  projection,
                          void *               inRefcon);
-
 #endif /* XPLM300 */
 #if defined(XPLM300)
 /***************************************************************************
@@ -208,7 +202,6 @@ typedef void (* XPLMMapLabelDrawingCallback_f)(
  * computationally-intensive preparation you might need for drawing.
  *
  */
-
 
 /*
  * XPLMMapPrepareCacheCallback_f
@@ -237,7 +230,6 @@ typedef void (* XPLMMapPrepareCacheCallback_f)(
                          const float *        inTotalMapBoundsLeftTopRightBottom,
                          XPLMMapProjectionID  projection,
                          void *               inRefcon);
-
 /*
  * XPLMMapWillBeDeletedCallback_f
  * 
@@ -249,7 +241,6 @@ typedef void (* XPLMMapPrepareCacheCallback_f)(
 typedef void (* XPLMMapWillBeDeletedCallback_f)(
                          XPLMMapLayerID       inLayer,
                          void *               inRefcon);
-
 #endif /* XPLM300 */
 #if defined(XPLM300)
 /***************************************************************************
@@ -268,7 +259,6 @@ typedef void (* XPLMMapWillBeDeletedCallback_f)(
  * XPLMMapWillBeDeletedCallback_f.
  *
  */
-
 
 /*
  * XPLMMapLayerType
@@ -294,11 +284,9 @@ enum XPLMMapLayerType: int {
 /* Globally unique identifier for X-Plane's Map window, used as the           *
  * mapToCreateLayerIn parameter in XPLMCreateMapLayer_t                       */
 #define XPLM_MAP_USER_INTERFACE "XPLM_MAP_USER_INTERFACE"
-
 /* Globally unique identifier for X-Plane's Instructor Operator Station       *
  * window, used as the mapToCreateLayerIn parameter in XPLMCreateMapLayer_t   */
 #define XPLM_MAP_IOS         "XPLM_MAP_IOS"
-
 /*
  * XPLMCreateMapLayer_t
  * 
@@ -350,7 +338,6 @@ typedef struct {
     /* A reference to arbitrary data that will be passed to your callbacks        */
      void *                    refcon;
 } XPLMCreateMapLayer_t;
-
 /*
  * XPLMCreateMapLayer
  * 
@@ -379,7 +366,6 @@ XPLM_API XPLMMapLayerID XPLMCreateMapLayer(
  */
 XPLM_API int        XPLMDestroyMapLayer(
                          XPLMMapLayerID       inLayer);
-
 /*
  * XPLMMapCreatedCallback_f
  * 
@@ -393,7 +379,6 @@ XPLM_API int        XPLMDestroyMapLayer(
 typedef void (* XPLMMapCreatedCallback_f)(
                          const char *         mapIdentifier,
                          void *               refcon);
-
 /*
  * XPLMRegisterMapCreationHook
  * 
@@ -408,7 +393,6 @@ typedef void (* XPLMMapCreatedCallback_f)(
 XPLM_API void       XPLMRegisterMapCreationHook(
                          XPLMMapCreatedCallback_f callback,
                          void *               refcon);
-
 /*
  * XPLMMapExists
  * 
@@ -419,7 +403,6 @@ XPLM_API void       XPLMRegisterMapCreationHook(
  */
 XPLM_API int        XPLMMapExists(
                          const char *         mapIdentifier);
-
 #endif /* XPLM300 */
 #if defined(XPLM300)
 /***************************************************************************
@@ -440,7 +423,6 @@ XPLM_API int        XPLMMapExists(
  * draw.
  *
  */
-
 
 /*
  * XPLMMapOrientation
@@ -509,7 +491,6 @@ XPLM_API void       XPLMDrawMapIconFromSheet(
                          enum XPLMMapOrientation orientation,
                          float                rotationDegrees,
                          float                mapWidth);
-
 /*
  * XPLMDrawMapLabel
  * 
@@ -526,7 +507,6 @@ XPLM_API void       XPLMDrawMapLabel(
                          float                mapY,
                          enum XPLMMapOrientation orientation,
                          float                rotationDegrees);
-
 #endif /* XPLM300 */
 #if defined(XPLM300)
 /***************************************************************************
@@ -548,7 +528,6 @@ XPLM_API void       XPLMDrawMapLabel(
  *
  */
 
-
 /*
  * XPLMMapProject
  * 
@@ -566,7 +545,6 @@ XPLM_API void       XPLMMapProject(
                          double               longitude,
                          float *              outX,
                          float *              outY);
-
 /*
  * XPLMMapUnproject
  * 
@@ -584,7 +562,6 @@ XPLM_API void       XPLMMapUnproject(
                          float                mapY,
                          double *             outLatitude,
                          double *             outLongitude);
-
 /*
  * XPLMMapScaleMeter
  * 
@@ -600,7 +577,6 @@ XPLM_API float      XPLMMapScaleMeter(
                          XPLMMapProjectionID  projection,
                          float                mapX,
                          float                mapY);
-
 /*
  * XPLMMapGetNorthHeading
  * 
@@ -619,7 +595,6 @@ XPLM_API float      XPLMMapGetNorthHeading(
                          XPLMMapProjectionID  projection,
                          float                mapX,
                          float                mapY);
-
 #endif /* XPLM300 */
 #ifdef __cplusplus
 }
