@@ -206,9 +206,6 @@ XPLM_API int        XPLMAppendMenuItemWithCommand(
  * XPLMAppendMenuSeparator
  * 
  * This routine adds a separator to the end of a menu.
- * 
- * Returns a negative index if the append failed (due to an invalid parent
- * menu argument).
  *
  */
 XPLM_API void       XPLMAppendMenuSeparator(

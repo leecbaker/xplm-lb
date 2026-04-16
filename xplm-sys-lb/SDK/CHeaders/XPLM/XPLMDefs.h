@@ -145,8 +145,8 @@ typedef int XPLMPluginID;
 #define XPLM_NO_PLUGIN_ID    (-1)
 /* X-Plane itself                                                             */
 #define XPLM_PLUGIN_XPLANE   (0)
-/* The current XPLM revision is 4.2.1 (421).                                  */
-#define kXPLM_Version        (421)
+/* The current XPLM revision is 4.3.0 (430).                                  */
+#define kXPLM_Version        (430)
 /*
  * XPLMKeyFlags
  * 

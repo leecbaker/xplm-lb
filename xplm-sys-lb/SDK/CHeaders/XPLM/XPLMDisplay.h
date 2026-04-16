@@ -314,7 +314,7 @@ XPLM_API int        XPLMUnregisterDrawCallback(
  * get a callback before or after each item.
  *
  */
-typedef enum {
+typedef enum XPLMDeviceID: int {
     /* GNS430, pilot side.                                                        */
     xplm_device_GNS430_1                     = 0,
 
@@ -375,13 +375,13 @@ typedef enum {
     /* Airbus MCDU, copilot side.                                                 */
     xplm_device_MCDU_2                       = 19,
 
-} XPLMDeviceID;
-// typedef int XPLMDeviceID;
 #if defined(XPLM430)
     /* Airbus MCDU 3.                                                             */
     xplm_device_MCDU_3                       = 24,
 
 #endif /* XPLM430 */
+};
+// typedef int XPLMDeviceID;
 
 /*
  * XPLMAvionicsCallback_f
@@ -402,7 +402,7 @@ typedef enum {
  *
  */
 typedef int (* XPLMAvionicsCallback_f)(
-                         XPLMDeviceID         inDeviceID,
+                         enum XPLMDeviceID    inDeviceID,
                          int                  inIsBefore,
                          void *               inRefcon);
 #if defined(XPLM410)
@@ -499,7 +499,7 @@ typedef struct {
      * compiled against; should always be set to sizeof(XPLMCustomizeAvionics_t)  */
      int                       structSize;
     /* The built-in avionics device to which you want your drawing applied.       */
-     XPLMDeviceID              deviceId;
+     enum XPLMDeviceID         deviceId;
     /* The draw callback to be called before X-Plane draws.                       */
      XPLMAvionicsCallback_f    drawCallbackBefore;
     /* The draw callback to be called after X-Plane has drawn.                    */
@@ -581,7 +581,7 @@ XPLM_API XPLMAvionicsID XPLMRegisterAvionicsCallbacksEx(
  *
  */
 XPLM_API XPLMAvionicsID XPLMGetAvionicsHandle(
-                         XPLMDeviceID         inDeviceID);
+                         enum XPLMDeviceID    inDeviceID);
 /*
  * XPLMUnregisterAvionicsCallbacks
  * 

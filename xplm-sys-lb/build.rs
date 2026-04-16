@@ -1,5 +1,6 @@
 use std::env;
 use std::path::PathBuf;
+
 extern crate bindgen;
 
 fn main() {
@@ -24,32 +25,9 @@ fn main() {
         .header("wrapper.h")
         .clang_arg("-I./SDK/CHeaders/XPLM")
         .clang_arg(format!("-D{os_define}"))
-        .rustified_enum("XPLMAudioBus")
-        .rustified_enum("XPLMBankID")
-        .rustified_enum("XPLMCameraControlDuration")
-        .rustified_enum("XPLMCommandButtonID")
-        .rustified_enum("XPLMCommandKeyID")
-        .rustified_enum("XPLMCommandPhase")
-        .rustified_enum("XPLMCursorStatus")
-        .rustified_enum("XPLMDataFileType")
-        .rustified_enum("XPLMDeviceID")
-        .rustified_enum("XPLMDrawingPhase")
-        .rustified_enum("XPLMFlightLoopPhaseType")
-        .rustified_enum("XPLMFontID")
-        .rustified_enum("XPLMHostApplicationID")
-        .rustified_enum("XPLMLanguageCode")
-        .rustified_enum("XPLMMapLayerType")
-        .rustified_enum("XPLMMapOrientation")
-        .rustified_enum("XPLMMapStyle")
-        .rustified_enum("XPLMMenuCheck")
-        .rustified_enum("XPLMMouseStatus")
-        .rustified_enum("XPLMNavFlightPlan")
-        .rustified_enum("XPLMNavType")
-        .rustified_enum("XPLMProbeResult")
-        .rustified_enum("XPLMProbeType")
-        .rustified_enum("XPLMWindowDecoration")
-        .rustified_enum("XPLMWindowLayer")
-        .rustified_enum("XPLMWindowPositioningMode")
+        .default_enum_style(bindgen::EnumVariation::Rust {
+            non_exhaustive: false,
+        })
         // Tell cargo to invalidate the built crate whenever any of the
         // included header files changed.
         .parse_callbacks(Box::new(bindgen::CargoCallbacks::new()));
